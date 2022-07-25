@@ -12,7 +12,7 @@ class MailgunSmtpd < MidiSmtpServer::Smtpd
       exit(false)
     end
 
-    @@mg_client = Mailgun::Client.new ENV['MG_KEY']
+    @@mg_client = Mailgun::Client.new ENV['MG_KEY'], 'api.eu.mailgun.net'
     @@mg_domain = ENV['MG_DOMAIN']
     super
   end
