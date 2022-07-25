@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mail:
+    build:
+      context: .
+    image: stevenolen/mailgun-smtp-server
+    restart: always
+    container_name: mailgun-smtp-server
+    expose:
+      - 25
+    env_file: .env
+    networks:
+      mail:
+        ipv4_address: 192.168.150.2
+networks:
+  mail:
+    external: true
