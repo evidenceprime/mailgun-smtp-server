@@ -1,13 +1,14 @@
-FROM alpine:3.3
+FROM alpine:latest
 MAINTAINER technolengy@gmail.com
 
 RUN apk update && apk --update add ruby ruby-irb ruby-io-console tzdata ca-certificates
+#RUN gem install bundler -v '~>1'
 
 ADD Gemfile /app/  
-ADD Gemfile.lock /app/
+#ADD Gemfile.lock /app/
 
 RUN apk --update add --virtual build-deps build-base ruby-dev \
-    && gem install bundler --no-ri --no-rdoc \
+    && gem install bundler \
     && cd /app \
     && bundle install \
     && apk del build-deps

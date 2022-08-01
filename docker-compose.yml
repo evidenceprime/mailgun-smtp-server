@@ -3,11 +3,12 @@ services:
   mail:
     build:
       context: .
-    image: stevenolen/mailgun-smtp-server
     restart: always
     container_name: mailgun-smtp-server
     expose:
       - 25
+    ports:
+      - "127.0.0.1:2525:25"
     env_file: .env
     networks:
       mail:
