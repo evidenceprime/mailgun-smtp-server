@@ -1,23 +1,16 @@
-FROM alpine:latest
-MAINTAINER technolengy@gmail.com
+FROM alpine:3.16.2
 
 RUN apk update && apk --update add ruby ruby-irb ruby-io-console tzdata ca-certificates
-#RUN gem install bundler -v '~>1'
-
-ADD Gemfile /app/  
-#ADD Gemfile.lock /app/
-
+ADD Gemfile /app/
 RUN apk --update add --virtual build-deps build-base ruby-dev \
     && gem install bundler \
     && cd /app \
     && bundle install \
     && apk del build-deps
 
-ADD . /app  
-RUN chown -R root:root /app  
-
+ADD . /app
+RUN chown -R root:root /app
 WORKDIR /app
-
 EXPOSE 25
 
 CMD ["bundle", "exec", "ruby", "mail.rb"]
