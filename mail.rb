@@ -21,6 +21,7 @@ class MailgunSmtpd < MidiSmtpServer::Smtpd
     logger.debug("[#{ctx[:envelope][:from]}] for recipient(s): [#{ctx[:envelope][:to]}]...")
 
     data = {
+      from: ctx[:envelope][:from],
       to: ctx[:envelope][:to], 
       message: ctx[:message][:data]
     }
