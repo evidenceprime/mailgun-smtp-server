@@ -24,6 +24,7 @@ class MailgunSmtpd < MidiSmtpServer::Smtpd
         api_key = ENV['MG_KEY'],
         api_host = 'api.eu.mailgun.net'
       )
+    end
     @@mg_domain = ENV['MG_DOMAIN']
     super
   end
