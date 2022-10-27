@@ -12,19 +12,16 @@ class MailgunSmtpd < MidiSmtpServer::Smtpd
       exit(false)
     end
 
-    # client failed silently with proxy_url set to nil
-    if ENV.key?('MG_PROXY')
-      @@mg_client = Mailgun::Client.new(
-        api_key = ENV['MG_KEY'],
-        api_host = 'api.eu.mailgun.net',
-        proxy_url = ENV['MG_PROXY']
-      )
-    else
-      @@mg_client = Mailgun::Client.new(
-        api_key = ENV['MG_KEY'],
-        api_host = 'api.eu.mailgun.net'
-      )
-    end
+    # named arguments caused some odd behavior, incl. proxy not being used
+    @@mg_client = Mailgun::Client.new(
+      ENV['MG_KEY'],
+      'api.eu.mailgun.net',
+      'v3',
+      true,
+      false,
+      nil,
+      ENV['MG_PROXY'] ||= nil
+    )
     @@mg_domain = ENV['MG_DOMAIN']
     super
   end
